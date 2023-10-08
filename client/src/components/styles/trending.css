@@ -1,0 +1,15 @@
+@media screen and (max-width : 800px) {
+    .newsContainer {
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        margin: 0;
+    }
+
+    .newsContainer .item {
+        width: 90%;
+        margin: auto;
+        margin-top: 1.2rem;
+        margin-bottom: 10px;
+    }
+}
