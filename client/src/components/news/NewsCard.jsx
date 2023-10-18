@@ -31,14 +31,14 @@ export default function NewsCard(props) {
     const navigate = useNavigate();
     const handleEdit = () => {
         setError(false);
-        navigate(`/news-details/${props.id}`);
+        navigate(`${import.meta.env.VITE_BASE_URL}/news-details/${props.id}`);
     }
 
 
 
     const handleDelete = async (id) => {
         try {
-            const { data } = await axios.delete(`/api/v1/news/delete-news/${id}`);
+            const { data } = await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/v1/news/delete-news/${id}`);
             if (data?.success) {
                 toast.success(data.message);
                 window.location.reload();

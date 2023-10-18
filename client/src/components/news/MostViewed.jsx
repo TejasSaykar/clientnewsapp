@@ -12,7 +12,7 @@ const MostViewed = () => {
 
     const mostView = async () => {
         setLoading(true)
-        const { data } = await axios.get("/api/v1/news/all-news");
+        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/news/all-news`);
         if (data && data?.success) {
             setMostViewed(data?.news)
         }

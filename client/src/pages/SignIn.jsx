@@ -18,7 +18,7 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post("/api/v1/auth/signin", {
+            const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/auth/signin`, {
                 email, password
             });
             if (data && data.success) {

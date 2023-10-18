@@ -31,7 +31,7 @@ const CreateNews = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('/api/v1/news/create-news', {
+            const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/news/create-news`, {
                 title: inputs.title,
                 description: inputs.description,
                 // category: inputs.category,

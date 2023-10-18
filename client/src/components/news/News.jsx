@@ -44,7 +44,7 @@ const News = () => {
 
     const getSingleNews = async () => {
         try {
-            const { data } = await axios.get(`/api/v1/news/get-news/${id}`);
+            const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/news/get-news/${id}`);
             if (data?.success) {
                 setNews({
                     title: data.news.title,

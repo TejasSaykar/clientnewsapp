@@ -14,7 +14,7 @@ const Home = () => {
 
     const getAllNews = async () => {
         try {
-            const { data } = await axios.get("/api/v1/news/all-news");
+            const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/news/all-news`);
             if (data?.success) {
                 setNews(data?.news)
             }
@@ -25,7 +25,7 @@ const Home = () => {
 
     const getUser = async () => {
         try {
-            const { data } = await axios.get("/api/v1/auth/all-users");
+            const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/auth/all-users`);
             if (data?.success) {
                 setUser({ name: data?.users?.name })
             }

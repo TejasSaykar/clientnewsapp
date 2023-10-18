@@ -9,7 +9,7 @@ const Trending = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        axios.get("/api/v1/trending")
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/trending`)
             .then((res) => {
                 setLoading(true)
                 setNews(res.data);
