@@ -15,6 +15,7 @@ import { red } from '@mui/material/colors';
 import { Box } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import moment from 'moment'
+import toast from 'react-hot-toast'
 
 const News = () => {
 
@@ -51,6 +52,8 @@ const News = () => {
                     image: data.news.image,
                     time: data.news.createdAt
                 })
+            } else {
+                toast.error("Something went wrong")
             }
         } catch (error) {
             console.log(error);
@@ -104,7 +107,7 @@ const News = () => {
                             <CardHeader
                                 avatar={
                                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                        R
+                                        A
                                     </Avatar>
                                 }
                                 // action={
@@ -112,12 +115,12 @@ const News = () => {
                                 //         <MoreVertIcon />
                                 //     </IconButton>
                                 // }
-                                // title={news.user}
-                                subheader={moment(news.time).fromNow()}
+                                title={"Admin"}
+                                subheader={`Published ${moment(news.time).fromNow()}`}
                             />
                             <CardMedia
                                 component="img"
-                                sx={{ width: 500, margin: 'auto', height: 300 }}
+                                sx={{ width: "fit-content", margin: 'auto' }}
                                 className='rounded-sm'
                                 image={news.image}
                                 alt="Paella dish"

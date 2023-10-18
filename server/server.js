@@ -19,14 +19,6 @@ dotenv.config();
 // Calling database
 connectDb();
 
-// cors
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "GET, PUT, POST,DELETE");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
-
 
 // Routing
 app.use("/api/v1/auth", authRoute);
@@ -103,5 +95,5 @@ app.get("/api/v1/mostviewed", (req, res) => {
 const port = 8080;
 
 app.listen(port, () => {
-    console.log(`Serve on http://localhost:${port}`);
+    console.log(`Serve on http://31.220.58.235/:${port}`);
 })

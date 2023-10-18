@@ -8,12 +8,26 @@ import NewsCard from '../components/news/NewsCard'
 const Home = () => {
     const [loading, setLoading] = useState(true);
     const [news, setNews] = useState([]);
+    const [user, setUser] = useState({});
+
+    const ADMINID = "652fa657bf357107bece2576";
 
     const getAllNews = async () => {
         try {
             const { data } = await axios.get("/api/v1/news/all-news");
             if (data?.success) {
                 setNews(data?.news)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getUser = async () => {
+        try {
+            const { data } = await axios.get("/api/v1/auth/all-users");
+            if (data?.success) {
+                setUser({ name: data?.users?.name })
             }
         } catch (error) {
             console.log(error);
@@ -63,11 +77,13 @@ const Home = () => {
                             <div className='flex flex-col'>
                                 {news && news.map((singleNews) => (
                                     <NewsCard
+                                        key={singleNews._id}
                                         title={singleNews.title}
                                         description={singleNews.description}
                                         image={singleNews.image}
                                         time={singleNews.createdAt}
                                         id={singleNews._id}
+                                        isUser={localStorage.getItem('userId') === ADMINID}
                                     />
                                 ))}
                             </div>

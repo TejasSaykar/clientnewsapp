@@ -9,6 +9,7 @@ const NewsDetails = () => {
     const [news, setNews] = useState({});
     const id = useParams().id;
     const [inputs, setInputs] = useState({});
+    const [category, setCategory] = useState('');
 
     const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ const NewsDetails = () => {
                     description: data.news.description,
                     image: data.news.image
                 });
+                setCategory(data.news.category)
 
             }
         } catch (error) {
@@ -46,7 +48,8 @@ const NewsDetails = () => {
             const { data } = await axios.put(`/api/v1/news/update-news/${id}`, {
                 title: inputs.title,
                 description: inputs.description,
-                image: inputs.image
+                image: inputs.image,
+                category
             });
             navigate("/")
         } catch (error) {
@@ -94,6 +97,14 @@ const NewsDetails = () => {
                                 Description
                             </InputLabel>
                             <TextField required sx={{ width: "100%" }} value={inputs.description} name='description' onChange={handleChange} margin='normal' variant='outlined' />
+
+                            <InputLabel sx={{ fontSize: '24px', fontWeight: 'bold' }}>Category</InputLabel>
+
+                            <select value={category} onChange={(e) => setCategory(e.target.value)} className='w-full py-3 outline-gray-400'>
+                                <option value="">{!category ? "Select" : category}</option>
+                                <option value="trending">Trending</option>
+                                <option value="mostviewed">Most Viewed</option>
+                            </select>
 
                             <InputLabel
                                 sx={{ fontSize: '24px', fontWeight: 'bold' }}

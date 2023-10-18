@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -21,7 +21,15 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: Number,
         required: true
-    }
+    },
+
+    // news: [
+    //     {
+    //         type: mongoose.Types.ObjectId,
+    //         ref: "News"
+    //     }
+    // ],
+
 }, { timestamps: true });
 
 export default mongoose.model("user", userSchema);

@@ -16,16 +16,25 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 
 
 
 export default function NewsCard(props) {
 
+    const isLogin = useSelector(state => state.isLogin);
+    const [error, setError] = React.useState(false);
+
+    let username = localStorage.getItem("userName");
+
     const navigate = useNavigate();
     const handleEdit = () => {
-        navigate(`/news-details/${props.id}`)
+        setError(false);
+        navigate(`/news-details/${props.id}`);
     }
+
+
 
     const handleDelete = async (id) => {
         try {
@@ -41,18 +50,19 @@ export default function NewsCard(props) {
 
     return (
         <Card sx={{ mx: 2, height: "fit-content" }} className='lg:w-[700px] lg:m-auto, mt-2'>
-            <Box display={'flex'}>
-                <IconButton onClick={handleEdit} sx={{ ml: "auto" }}>
-                    <ModeEditIcon />
-                </IconButton>
-                <IconButton>
-                    <DeleteIcon onClick={() => handleDelete(props.id)} />
-                </IconButton>
-            </Box>
+            {props.isUser &&
+                <Box display={'flex'}>
+                    <IconButton onClick={handleEdit} sx={{ ml: "auto" }}>
+                        <ModeEditIcon />
+                    </IconButton>
+                    <IconButton onClick={() => handleDelete(props.id)}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Box>}
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
+                        A
                     </Avatar>
                 }
                 // action={
@@ -60,8 +70,8 @@ export default function NewsCard(props) {
                 //         <MoreVertIcon />
                 //     </IconButton>
                 // }
-                title={props.username}
-                subheader={moment(props.time).fromNow()}
+                title={"Admin"}
+                subheader={`Published ${moment(props.time).fromNow()}`}
             />
             <CardMedia
                 component="img"
@@ -79,7 +89,7 @@ export default function NewsCard(props) {
                 <Typography variant="body2" color="text.secondary">
                     {props.description}
                 </Typography>
-                <Typography variant='span' color={'skyblue'} className='font-semibold cursor-pointer' onClick={() => navigate(`/news/${props.id}`)} >
+                <Typography variant='span' color={'skyblue'} className='font-semibold cursor-pointer' onClick={() => navigate(isLogin ? `/news/${props.id}` : '/signin')} >
                     Read More....
                 </Typography>
             </CardContent>

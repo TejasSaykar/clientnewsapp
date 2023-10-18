@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../components/Layout/Layout'
-import { Box, Button, InputLabel, TextField, Typography } from '@mui/material'
+import { Box, Button, InputLabel, Select, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -13,10 +13,15 @@ const CreateNews = () => {
         image: ''
     });
 
+    const [category, setCategory] = useState('')
+    console.log(inputs);
+    console.log(category)
+
     const navigate = useNavigate();
 
 
     const handleChange = (e) => {
+        // console.log(e.target.value)
         setInputs((prev) => ({
             ...prev,
             [e.target.name]: e.target.value
@@ -29,7 +34,9 @@ const CreateNews = () => {
             const { data } = await axios.post('/api/v1/news/create-news', {
                 title: inputs.title,
                 description: inputs.description,
-                image: inputs.image
+                // category: inputs.category,
+                image: inputs.image,
+                category
             });
             if (data?.success) {
                 toast.success(data.message);
@@ -37,7 +44,7 @@ const CreateNews = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(data.message)
+            toast.error("Error while creating the news")
         }
     }
 
@@ -82,6 +89,20 @@ const CreateNews = () => {
                         Description
                     </InputLabel>
                     <TextField required sx={{ width: "100%" }} value={inputs.description} name='description' onChange={handleChange} margin='normal' variant='outlined' />
+
+                    <InputLabel sx={{ fontSize: '24px', fontWeight: 'bold' }}>Category</InputLabel>
+                    {/* <Select value={inputs.category} onChange={handleChange}>
+                        <Option value='select'>Select</Option>
+                        <Option value='trending'>Trending</Option>
+                        <Option value='mostviewed'>Most Viewed</Option>
+
+                    </Select> */}
+
+                    <select value={category} onChange={(e) => setCategory(e.target.value)} className='w-full py-3 outline-gray-400'>
+                        <option value="">{!category ? "Select" : category}</option>
+                        <option value="trending">Trending</option>
+                        <option value="mostviewed">Most Viewed</option>
+                    </select>
 
                     <InputLabel
                         sx={{ fontSize: '24px', fontWeight: 'bold' }}

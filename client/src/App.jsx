@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import News from './components/news/News'
 import SignIn from './pages/SignIn'
@@ -13,7 +12,6 @@ import PageNotFound from './pages/PageNotFound'
 
 function App() {
 
-
   return (
     <>
       <h1 className='font-bold text-2xl text-center'>News app for client</h1>
@@ -23,7 +21,7 @@ function App() {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/news/:id' element={<News />} />
 
-        <Route path='/admin/create-news' element={<CreateNews />} />
+        <Route path='/admin/create-news' element={<IsAdmin><CreateNews /></IsAdmin>} />
         <Route path='/news-details/:id' element={<NewsDetails />} />
 
         <Route path='/trending' element={<Trending />} />
@@ -33,6 +31,14 @@ function App() {
       </Routes>
     </>
   )
+}
+
+export function IsAdmin(props) {
+  if (localStorage.getItem("userId") === "6523bb298cd590b32f82da1d") {
+    return props.children;
+  } else {
+    return <Navigate to={"/"} />
+  }
 }
 
 export default App

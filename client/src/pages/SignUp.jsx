@@ -19,9 +19,11 @@ const SignUp = () => {
             const { data } = await axios.post("/api/v1/auth/signup", {
                 name, email, password, phone
             })
-            if (data && data.success) {
-                toast.success(data && data.message)
+            if (data && data?.success) {
+                toast.success("SignUp successful !")
                 navigate('/signin');
+            } else {
+                toast.error("All fields are required !")
             }
 
         } catch (error) {
@@ -45,7 +47,7 @@ const SignUp = () => {
                         </div>
                         <div className='pt-3 flex flex-col justify-center'>
                             <label htmlFor="nameLabel" className='text-lg ml-2 mb-2'>Enter Your Password : </label>
-                            <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} className='mx-2 text-black p-2 rounded bg-indigo-50 outline-none focus:outline-indigo-500 placeholder:text-gray-500 placeholder:font-medium' placeholder='Enter Password' />
+                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='mx-2 text-black p-2 rounded bg-indigo-50 outline-none focus:outline-indigo-500 placeholder:text-gray-500 placeholder:font-medium' placeholder='Enter Password' />
                         </div>
                         <div className='pt-3 flex flex-col justify-center'>
                             <label htmlFor="nameLabel" className='text-lg ml-2 mb-2'>Enter Your Phone : </label>

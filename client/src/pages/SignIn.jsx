@@ -3,11 +3,15 @@ import Layout from '../components/Layout/Layout'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../redux/store';
 
 const SignIn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -18,7 +22,10 @@ const SignIn = () => {
                 email, password
             });
             if (data && data.success) {
-                toast.success(data && data.message)
+                toast.success(data && data.message);
+                localStorage.setItem("userId", data?.user._id);
+                localStorage.setItem("userName", data?.user.name)
+                dispatch(authActions.login())
                 navigate("/");
             } else {
                 toast.error(data && data.message)
@@ -44,7 +51,7 @@ const SignIn = () => {
 
                         <div className='pt-3 flex flex-col justify-center'>
                             <label htmlFor="nameLabel" className='text-lg ml-2 mb-2'>Enter Your Password :- </label>
-                            <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} className='mx-2 text-black p-2 rounded bg-indigo-50 outline-none focus:outline-indigo-500 placeholder:text-gray-500 placeholder:font-medium' placeholder='Enter Password' />
+                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='mx-2 text-black p-2 rounded bg-indigo-50 outline-none focus:outline-indigo-500 placeholder:text-gray-500 placeholder:font-medium' placeholder='Enter Password' />
                         </div>
 
                         <div className='flex flex-col justify-start lg:flex-row'>
